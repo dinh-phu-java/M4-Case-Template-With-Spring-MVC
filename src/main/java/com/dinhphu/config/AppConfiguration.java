@@ -3,6 +3,10 @@ package com.dinhphu.config;
 
 import com.dinhphu.services.ISmartPhoneServices;
 import com.dinhphu.services.SmartPhoneServices;
+import com.dinhphu.services.image.IImageServices;
+import com.dinhphu.services.image.ImageServices;
+import com.dinhphu.services.product.IProductServices;
+import com.dinhphu.services.product.ProductServices;
 import com.dinhphu.services.role.IRoleServices;
 import com.dinhphu.services.role.RoleServices;
 import com.dinhphu.services.user.IUserServices;
@@ -178,6 +182,17 @@ public class AppConfiguration extends WebMvcConfigurerAdapter implements Applica
     @Bean
     public IRoleServices roleServices(){
         return new RoleServices();
+    }
+
+    @Bean
+    public IImageServices imageServices(){
+        return new ImageServices();
+    }
+
+    @Bean
+    public IProductServices productServices()
+    {
+        return new ProductServices();
     }
 //    @Override
 //    public void addFormatters(FormatterRegistry registry) {

@@ -20,6 +20,8 @@ public class Image {
     public Image() {
     }
 
+
+
     public Image( String imageUrl, Product product) {
 
         this.imageUrl = imageUrl;

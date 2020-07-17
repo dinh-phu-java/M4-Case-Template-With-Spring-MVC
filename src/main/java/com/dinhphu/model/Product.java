@@ -1,6 +1,7 @@
 package com.dinhphu.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,8 +15,15 @@ public class Product {
     @Column(name="product_name")
     private String productName;
 
-    @OneToMany(mappedBy="product",fetch=FetchType.LAZY)
+    @OneToMany(mappedBy="product",fetch=FetchType.EAGER)
     private List<Image> image;
+
+    public void addImage(Image tempImage){
+        if (image==null){
+            image=new ArrayList<>();
+        }
+        image.add(tempImage);
+    }
 
     public Product() {
     }
