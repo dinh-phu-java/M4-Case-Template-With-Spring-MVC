@@ -3,24 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>List User</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var delete_tags=$('a:contains("Delete")');
+            delete_tags.click(function(event){
+                var delete_target=$(event.target).attr("href");
+                $.ajax({
+                    headers:{
+                        'Accept':'application/json',
+                        'Content-Type':'application/json'
+                    },
+                    url:delete_target,
+                    type:"DELETE",
+                    success:function(user){
+                        var deleteTr=$(event.target).closest("tr");
+                        deleteTr.remove();
+                        // alert("");
+                        $('#resultDelete').html("delete ok: "+user.name);
+                    }
+                });
+                event.preventDefault();
+            });
+        });
+    </script>
 </head>
 <body>
 
     <a href="/users/create">Create New User</a>
-
+    <p id="resultDelete"></p>
     <table border="1">
         <tr>
             <th>Name</th>
             <th>Date Of Birth</th>
             <th>Avatar</th>
             <th>Role</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
+
         <tr th:block th:each="user : ${users}">
             <td th:text="${user.name}"></td>
             <td th:text="${user.dateOfBirth}"></td>
             <td><img th:src="@{'/i/'+${user.avatarUrl}}" width="50px"></td>
             <td th:text="${user.userRole.roleName}"></td>
+            <td><a th:href="@{/users/edit/__${user.id}__}">Edit</a></td>
+            <td><a th:href="@{/users/delete/__${user.id}__ }">Delete</a></td>
         </tr>
+
     </table>
 
 </body>

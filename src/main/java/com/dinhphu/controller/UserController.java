@@ -68,11 +68,6 @@ public class UserController {
         String uploadFileTarget=environment.getProperty("file_upload");
         String message="";
 
-
-//        System.out.println("upload file target: "+uploadFileTarget);
-//        System.out.println("user DTO: "+userDTO);
-//        System.out.println("new USer: "+newUser);
-
         if (file.getContentType().equals("image/jpeg") || file.getContentType().equals("image/png") ){
             try{
                 FileCopyUtils.copy(file.getBytes(),new File(uploadFileTarget+imageName));
@@ -88,5 +83,23 @@ public class UserController {
         }
 
         return message;
+    }
+
+
+    @DeleteMapping(value="/delete/{id}")
+    @ResponseBody
+    public User deleteUser(@PathVariable Integer id){
+        User deleteUser=userServices.findById(id);
+        String file_upload=environment.getProperty("file_upload");
+        String deleteUrl=file_upload+deleteUser.getAvatarUrl();
+        System.out.println("Delete url is: "+deleteUrl);
+        File deleteFile=new File(deleteUrl);
+
+        if (deleteFile.exists()){
+            deleteFile.delete();
+            userServices.deleteModel(id);
+            return deleteUser;
+        }
+        return null;
     }
 }
