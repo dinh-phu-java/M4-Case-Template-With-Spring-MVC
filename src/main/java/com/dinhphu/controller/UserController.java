@@ -84,7 +84,7 @@ public class UserController {
             message="Create new User: "+newUser.getName()+" Successful!";
 
         }else{
-            message="file should type be image and file size less than 5MB";
+            message="file type be an image and file size less than 5MB";
         }
 
         return message;

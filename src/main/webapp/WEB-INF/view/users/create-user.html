@@ -19,6 +19,7 @@
                     enctype: 'multipart/form-data',
                     processData: false,
                     success:function(message){
+                        $('#submit').prop('disabled', true);
                         $('#resultMessage').html(message);
                     }
                 });
@@ -35,7 +36,7 @@
         Date Of Birth: <input type="date" th:field="*{dateOfBirth}"><br>
         Avatar file: <input type="file" th:field="*{file}"><br>
 
-        <input type="submit" value="Submit"/>
+        <input type="submit" value="Submit" id="submit"/>
     </form>
 </body>
 </html>
