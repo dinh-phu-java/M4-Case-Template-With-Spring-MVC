@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+
+        $(document).ready(function(){
+            $('#createForm').submit(function(event){
+                var formData = new FormData($(this)[0]);
+                $.ajax({
+                    url:"/users/create",
+                    type:"POST",
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    success:function(message){
+                        $('#resultMessage').html(message);
+                    }
+                });
+                event.preventDefault();
+            }) ;
+        });
+    </script>
+</head>
+<body>
+<p id="resultMessage"></p>
+
+    <form id="createForm"  th:object="${userDTO}" enctype="multipart/form-data">
+        Name: <input type="text" th:field="*{name}"> <br>
+        Date Of Birth: <input type="date" th:field="*{dateOfBirth}"><br>
+        Avatar file: <input type="file" th:field="*{file}"><br>
+
+        <input type="submit" value="Submit"/>
+    </form>
+</body>
+</html>
